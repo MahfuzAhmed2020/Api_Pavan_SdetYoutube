@@ -32,6 +32,21 @@ public class Ibrahim_Api_Get_Call {
 		System.out.println("  response.path(\"lastName\")   =    " + response.path("lastName"));
 		System.out.println("  response.path(\"email\")   =    " + response.path("email"));
 		System.out.println("  response.path(\"phone\")   =    " + response.path("phone"));
+		System.out.println("\n response.contentType()   =  " + response.contentType());
+		System.out.println(" response.cookie(\"\")   =  " + response.cookie(""));
+		System.out.println(" response.getTime()   =  " + response.getTime());
+		
+		System.out.println("\n response.getBody().asString()   =  " + response.getBody().asString());
+		System.out.println(" response.asString()   =  " + response.asString());
+		System.out.println(" response.getSessionId()   =  " + response.getSessionId());
+		System.out.println("\n response.getStatusCode()   =  " + response.getStatusCode());
+		System.out.println("\n response.getStatusLine()   =  " + response.getStatusLine());
+		System.out.println("\n response.prettyPrint()   =  " + response.prettyPrint());
+		System.out.println("\n response.andReturn().asString()   =  " + response.andReturn().asString());
+		
+		System.out.println("\n response.getHeaders()   = \n  " + response.getHeaders());
+		
+		
 		
 		Assert.assertEquals("mahfuz", response.path("firstName"));
 	//	Response response1 = given().log().all().when().get("customers").then().statusCode(200).log().all().extract().response();
@@ -129,6 +144,18 @@ public class Ibrahim_Api_Get_Call {
 	
 	
 	/*
+HTTP/1.1 200 OK
+Server: Cowboy
+Connection: keep-alive
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Content-Type: application/json; charset=utf-8
+Content-Length: 123
+Etag: W/"7b-jf9AfGvrPuLtgP5sxtuAYlNk2bo"
+Date: Sun, 20 Nov 2022 21:17:44 GMT
+Via: 1.1 vegur
+
 {
     "userId": "60c90eee157e3b0017125366",
     "firstName": "mahfuz",
@@ -140,7 +167,54 @@ public class Ibrahim_Api_Get_Call {
   response.path("firstName")   =    mahfuz
   response.path("lastName")   =    ahmed
   response.path("email")   =    mahfuz@gmail.com
-  response.path("phone")   =    06152021*/
+  response.path("phone")   =    06152021
+
+ response.contentType()   =  application/json; charset=utf-8
+ response.cookie("")   =  null
+ response.getTime()   =  1090
+
+ response.getBody().asString()   =  {"userId":"60c90eee157e3b0017125366","firstName":"mahfuz","lastName":"ahmed","email":"mahfuz@gmail.com","phone":"06152021"}
+ response.asString()   =  {"userId":"60c90eee157e3b0017125366","firstName":"mahfuz","lastName":"ahmed","email":"mahfuz@gmail.com","phone":"06152021"}
+ response.getSessionId()   =  null
+
+ response.getStatusCode()   =  200
+
+ response.getStatusLine()   =  HTTP/1.1 200 OK
+{
+    "userId": "60c90eee157e3b0017125366",
+    "firstName": "mahfuz",
+    "lastName": "ahmed",
+    "email": "mahfuz@gmail.com",
+    "phone": "06152021"
+}
+
+ response.prettyPrint()   =  {
+    "userId": "60c90eee157e3b0017125366",
+    "firstName": "mahfuz",
+    "lastName": "ahmed",
+    "email": "mahfuz@gmail.com",
+    "phone": "06152021"
+}
+
+ response.andReturn().asString()   =  {
+    "userId": "60c90eee157e3b0017125366",
+    "firstName": "mahfuz",
+    "lastName": "ahmed",
+    "email": "mahfuz@gmail.com",
+    "phone": "06152021"
+}
+
+ response.getHeaders()   = 
+  Server=Cowboy
+Connection=keep-alive
+X-Powered-By=Express
+Access-Control-Allow-Origin=*
+Access-Control-Allow-Credentials=true
+Content-Type=application/json; charset=utf-8
+Content-Length=123
+Etag=W/"7b-jf9AfGvrPuLtgP5sxtuAYlNk2bo"
+Date=Sun, 20 Nov 2022 21:17:44 GMT
+Via=1.1 vegur*/
 	
 	
 
