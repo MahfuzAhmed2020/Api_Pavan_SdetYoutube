@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
+import static org.hamcrest.Matchers.*;
 import com.osa.format.FormatOsa;
 
 import io.restassured.RestAssured;
@@ -18,6 +18,7 @@ public class Ibrahim_Api_Get_Call {
 	public static void main(String[] args) {
 		 getCall();
 		//getCallZippotam();
+		//GETMethodCall_for_reqres_in();
 	}
 //@Test(/*enabled = false*/)
 	public static void getCall() {
@@ -27,6 +28,17 @@ public class Ibrahim_Api_Get_Call {
 		//Response response = given().log().all().when().get("customers/60c90eee157e3b0017125366").then().statusCode(200).log().all().extract().response(); //60c90eee157e3b0017125366
 		RequestSpecification request= RestAssured.given();
 		Response response=request.get("customers/60c90eee157e3b0017125366").then().statusCode(200).log().all().extract().response();
+		
+		System.out.println("\n ************************************");
+		RestAssured.given().when().get("/customers/637aebe3d9e9d5002339e828").then().log().all()
+		.assertThat().body("userId", equalTo("637aebe3d9e9d5002339e828"))
+		.assertThat().body("firstName", equalTo("Amy"))
+		.assertThat().body("lastName", equalTo("Satterfield"))
+		.assertThat().body("email", equalTo("Evelyn18@yahoo.com"))
+		.assertThat().body("phone", equalTo("11212022"));
+		System.out.println("\n **************Assert.assertEquals**********************");
+		Assert.assertEquals("mahfuz", response.getBody().jsonPath().get("firstName"));
+		System.out.println("\n ************************************");
 		System.out.println("  response.path(\"userId\")   =    " + response.path("userId"));
 		System.out.println("  response.path(\"firstName\")   =    " + response.path("firstName"));
 		System.out.println("  response.path(\"lastName\")   =    " + response.path("lastName"));
@@ -57,7 +69,9 @@ public class Ibrahim_Api_Get_Call {
 		RestAssured.baseURI = "http://api.zippopotam.us";
 
 		Response response = given().log().all().when().get("/de/24848").then().statusCode(200).log().all().extract().response();
-
+		System.out.println("************************************");   
+		response.prettyPrint();
+		System.out.println("************************************"); 
 		System.out.println(" response.contentType()   =  " + response.contentType());
 		System.out.println(" response.path(\"'post code'\")   =  " + response.path("'post code'"));
 		System.out.println("  response.path(\"country\")   =  " + response.path("country"));
@@ -76,6 +90,94 @@ public class Ibrahim_Api_Get_Call {
 		
 		
 	}
+	public static void GETMethodCall_for_reqres_in() {
+		//https://blog.clairvoyantsoft.com/api-test-automation-with-rest-assured-54d6d5a470b4
+		RestAssured.baseURI = "https://reqres.in/api/users";
+		Response response =given().get().then().assertThat().statusCode(200).log().all().extract().response();
+//			reqSpce.given().queryParam("page", "2").header("Content-Type", "application/json").when().get().then().log().all().assertThat().statusCode(200)
+//			.assertThat().header("connection", "keep-alive").assertThat().body("page", equalTo(2));
+		System.out.println("**************************************************************************");
+		System.out.println("\n  response.getBody().jsonPath().getString(\"data\")     =  "
+				+ response.getBody().jsonPath().getString("data"));
+		System.out.println("\n  response.getBody().jsonPath().getString(\"data[0]\")     =  "
+				+ response.getBody().jsonPath().getString("data[0]"));
+		System.out.println("\n  response.getBody().jsonPath().getString(\"data[0].email\")     =  "
+				+ response.getBody().jsonPath().getString("data[0].email"));
+		System.out.println("\n  response.getBody().jsonPath().getString(\"data[2].email\")     =  "
+				+ response.getBody().jsonPath().getString("data[2].email"));
+		System.out.println("\n  response.getBody().jsonPath().getString(\"data[3].first_name\")     =  "
+				+ response.getBody().jsonPath().getString("data[3].first_name"));
+		System.out.println("\n  response.getBody().jsonPath().getString(\"support\")     =  "
+				+ response.getBody().jsonPath().getString("support"));
+		System.out.println("\n  response.getBody().jsonPath().getString(\"support.url\")     =  "
+				+ response.getBody().jsonPath().getString("support.url"));
+		System.out.println("\n  response.getBody().jsonPath().getString(\"support.text\")     =  "
+				+ response.getBody().jsonPath().getString("support.text"));
+		System.out.println("\n**************************************************************************");
+		response.getBody().jsonPath().getString("total_pages");
+
+	}
+
+	/**
+	 * Response from "https://reqres.in"
+	 */
+
+	/*
+	 * { "page": 1, "per_page": 6, "total": 12, "total_pages": 2, "data": [ { "id":
+	 * 1, "email": "george.bluth@reqres.in", "first_name": "George", "last_name":
+	 * "Bluth", "avatar": "https://reqres.in/img/faces/1-image.jpg" }, { "id": 2,
+	 * "email": "janet.weaver@reqres.in", "first_name": "Janet", "last_name":
+	 * "Weaver", "avatar": "https://reqres.in/img/faces/2-image.jpg" }, { "id": 3,
+	 * "email": "emma.wong@reqres.in", "first_name": "Emma", "last_name": "Wong",
+	 * "avatar": "https://reqres.in/img/faces/3-image.jpg" }, { "id": 4, "email":
+	 * "eve.holt@reqres.in", "first_name": "Eve", "last_name": "Holt", "avatar":
+	 * "https://reqres.in/img/faces/4-image.jpg" }, { "id": 5, "email":
+	 * "charles.morris@reqres.in", "first_name": "Charles", "last_name": "Morris",
+	 * "avatar": "https://reqres.in/img/faces/5-image.jpg" }, { "id": 6, "email":
+	 * "tracey.ramos@reqres.in", "first_name": "Tracey", "last_name": "Ramos",
+	 * "avatar": "https://reqres.in/img/faces/6-image.jpg" } ], "support": { "url":
+	 * "https://reqres.in/#support-heading", "text":
+	 * "To keep ReqRes free, contributions towards server costs are appreciated!" }
+	 * }
+	 **************************************************************************
+	 * 
+	 * response.getBody().jsonPath().getString("data") = [[id:1,
+	 * email:george.bluth@reqres.in, first_name:George, last_name:Bluth,
+	 * avatar:https://reqres.in/img/faces/1-image.jpg], [id:2,
+	 * email:janet.weaver@reqres.in, first_name:Janet, last_name:Weaver,
+	 * avatar:https://reqres.in/img/faces/2-image.jpg], [id:3,
+	 * email:emma.wong@reqres.in, first_name:Emma, last_name:Wong,
+	 * avatar:https://reqres.in/img/faces/3-image.jpg], [id:4,
+	 * email:eve.holt@reqres.in, first_name:Eve, last_name:Holt,
+	 * avatar:https://reqres.in/img/faces/4-image.jpg], [id:5,
+	 * email:charles.morris@reqres.in, first_name:Charles, last_name:Morris,
+	 * avatar:https://reqres.in/img/faces/5-image.jpg], [id:6,
+	 * email:tracey.ramos@reqres.in, first_name:Tracey, last_name:Ramos,
+	 * avatar:https://reqres.in/img/faces/6-image.jpg]]
+	 * 
+	 * response.getBody().jsonPath().getString("data[0]") = [id:1,
+	 * email:george.bluth@reqres.in, first_name:George, last_name:Bluth,
+	 * avatar:https://reqres.in/img/faces/1-image.jpg]
+	 * 
+	 * response.getBody().jsonPath().getString("data[0].email") =
+	 * george.bluth@reqres.in
+	 * 
+	 * response.getBody().jsonPath().getString("data[2].email") =
+	 * emma.wong@reqres.in
+	 * 
+	 * response.getBody().jsonPath().getString("data[3].first_name") = Eve
+	 * 
+	 * response.getBody().jsonPath().getString("support") =
+	 * [url:https://reqres.in/#support-heading, text:To keep ReqRes free,
+	 * contributions towards server costs are appreciated!]
+	 * 
+	 * response.getBody().jsonPath().getString("support.url") =
+	 * https://reqres.in/#support-heading
+	 * 
+	 * response.getBody().jsonPath().getString("support.text") = To keep ReqRes
+	 * free, contributions towards server costs are appreciated!
+	 * 
+	 **************************************************************************/
 	
 	/**
 	 * 
